@@ -3,7 +3,7 @@
 This project is an interactive Reverse Polish Notation (RPN+) calculator written in Ruby 2.5.0.
 ___
 ## Necessary Files
-+ Source Files
++ Ruby Files
 	+ rpn
 		+ Main Source File
 	+ args_checker
