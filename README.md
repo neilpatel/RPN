@@ -89,4 +89,156 @@ ___
 14. You may count all rubocop errors/warnings of the same type as a single error.  For example, if you have a five errors but they are all warning about cyclomatic complexity, you can count that as a single error (and thus only one of your four "get of jail free" cards).
 ___
 ## Sample Output
-+ 
+```
+$ cat Foo.rpn
+LET A 1
+```
+
+is a way to show you that the contents of the file `Foo.rpn` consist of one line, `LET A 1`.
+
+It may be useful to copy and paste some of these files to your own computer for testing purposes.
+
+Note that your program will be tested with different files than the ones here.
+
+Simple runs
+
+```
+$ ruby rpn.rb
+> 4 3 +
+7
+> LET a 10
+10
+> a 1 +
+11
+> 2
+2
+> LET b 2 2 +
+4
+> LET c a b +
+14
+> PRINT c
+14
+> PRINT c 1 +
+15
+> 10 10 * 5 5 * 0 0 * + +
+125
+> QUIT
+
+$
+```
+
+Errors
+
+```
+$ ruby rpn.rb
+> a 4 +
+Line 1: Variable a is not initialized
+> 1 2 + +
+Line 2: Operator + applied to empty stack
+> 3 4 5
+Line 3: 3 elements in stack after evaluation
+> LOOP
+Line 4: Unknown keyword LOOP
+> 4 3 LET + a
+Line 5: Could not evaluate expression
+> LET a
+Line 6: LET applied to empty stack
+> QUIT BUMBLEBEE
+
+```
+
+_In the above example, note that BUMBLEBEE was ignored_
+
+Big numbers
+
+```
+> 999999999999999999 999999999999999999 *
+999999999999999998000000000000000001
+> LET a 0 999999999999999999999999999 -
+-999999999999999999999999999
+> LET b -1
+-1
+> a b +
+-1000000000000000000000000000
+> QUIT
+```
+
+Files
+
+```
+$ cat File1.rpn
+LET A 1
+LET B 2
+PRINT A B +
+
+$ ruby rpn.rb File1.rpn
+3
+
+$ cat File2.rpn
+PRINT -1 1 +
+PRINT 0
+PRINT 100 0 *
+QUIT
+
+$ ruby rpn.rb File2.rpn
+0
+0
+0
+
+$ ruby rpn.rb File1.rpn File2.rpn
+3
+0
+0
+0
+
+$ ruby rpn.rb File2.rpn File1.rpn
+0
+0
+0
+
+$ echo Note that the QUIT keyword in File2 made File1 not run
+Note that the QUIT keyword in File2 made File1 not run
+```
+
+Errors in files
+
+```
+$ cat Bad.rpn
+LET A 1
+LET B 2
+PRINT 1 2 3
+PRINT B
+PRINT C
+
+$ ruby rpn.rb Bad.rpn
+Line 3: 3 elements in stack after evaluation
+
+$ cat Bad2.rpn
+QUOMBLE
+1 2 +
+3 4 -
+
+$ ruby rpn.rb Bad2.rpn
+Line 1: Unknown keyword QUOMBLE
+
+$ cat Bad3.rpn
+LET a 100 100 +
+LET b 60 +
+LET c a b +
+PRINT c
+
+$ ruby rpn.rb Bad3.rpn
+Line 2: Operator + applied to empty stack
+
+$ cat Bad4.rpn
+PRINT 1
+LET a 100 100 +
+LET b 60 +
+LET c a b +
+PRINT c
+
+$ ruby rpn.rb Bad4.rpn
+1
+Line 3: Operator + applied to empty stack
+```
+___
