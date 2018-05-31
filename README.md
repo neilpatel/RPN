@@ -94,7 +94,7 @@ $ cat Foo.rpn
 LET A 1
 ```
 
-is a way to show you that the contents of the file `Foo.rpn` consist of one line, `LET A 1`.
+The above execution is a way to show that the contents of the file `Foo.rpn` consist of one line, `LET A 1`.
 
 It may be useful to copy and paste some of these files to your own computer for testing purposes.
 
