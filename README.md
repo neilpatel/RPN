@@ -4,6 +4,8 @@ This project is an interactive Reverse Polish Notation (RPN+) calculator written
 ___
 ## Necessary Files
 + Source Files
+	+ rpn
+		+ Main Source File
 	+ args_checker
 	+ error_handler
 	+ file_mode
@@ -13,8 +15,6 @@ ___
 	+ line_executor
 	+ print_ops
 	+ repl_mode
-	+ rpn
-		+ Main Source File
 	+ token_parser
 	+ variables
 + Unit Test Files
